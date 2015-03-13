@@ -9,8 +9,8 @@
 - many paths to set as well as ANDROID_HOME 
 - works really well in Intellij, import as Gradle project use external wrapper for gradle to ensure  > 2.2.2
 - run the build, android and androidinstall tasks
-- make sure you have th support libary/tools installed in your sdk
+- make sure you have the support libary/tools installed in your sdk
 - needs the ANDROID_HOME/extras/android/support/multidex/library/libs/android-support-multidex.jar
 
-## application space 
+### application space
 - tablet games and the embedded device domain
