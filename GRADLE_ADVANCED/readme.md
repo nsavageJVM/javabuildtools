@@ -1,6 +1,9 @@
-# Eduonix Java Build Tools
+# Eduonix Java Build Tools GRADLE
 
-## JavaFx Ports  jfxmobile-plugin
+## advanced gradle build
+- uses JavaFX ports to build package and install a JavaFX 8 application on a Android physical device or emulator
+
+### JavaFx Ports  jfxmobile-plugin
 - http://javafxports.org/page/Getting_Started
 - android api level 5
 - JDK 8 version >40
