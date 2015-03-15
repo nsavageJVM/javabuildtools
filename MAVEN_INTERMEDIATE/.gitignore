@@ -1,0 +1,4 @@
+.idea
+eduonix-maven-scala.iml
+target
+*.jar
