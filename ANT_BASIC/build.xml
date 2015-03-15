@@ -1,0 +1,80 @@
+<project name="JavaBuildTools" default="build-all">
+    <description>
+        Project Build With Ant
+    </description>
+
+    <property name="lib.dir" location="lib"/>
+    <property name="main-class"  value="javabuildtools.JavaBuildTools"/>
+
+    <path id="classpath">
+        <fileset dir="bin" />
+    </path>
+
+    <macrodef name="buildpackage">
+        <attribute name="packagefolder" />
+        <sequential>
+            <echo message="Building package @{packagefolder}" />
+            <javac
+                srcdir="src"
+                destdir="bin"
+                includes="@{packagefolder}/**/*.java"
+            	source="1.8"
+            	target="1.8"  classpathref="classpath">
+                <compilerarg value="-g:none" />
+                <compilerarg value="-Xlint:all" />
+                <compilerarg value="-Xlint:-serial" />
+                <compilerarg value="-Xlint:-deprecation" />
+
+            </javac>
+            <copy todir="bin">
+                <fileset dir="src" casesensitive="no">
+                    <include name="@{packagefolder}/**" />
+                    <exclude name="@{packagefolder}/**/*.java" />
+                </fileset>
+            </copy>
+
+        </sequential>
+    </macrodef>
+
+    <target name="clean">
+        <delete dir="bin" />
+        <delete dir="build" />
+    </target>
+
+    <target name="init" depends="clean">
+        <mkdir dir="bin" />
+        <mkdir dir="package" />
+        <unjar src="${lib.dir}/jul-to-slf4j-1.7.7.jar" dest="bin" />
+        <unjar src="${lib.dir}/log4j-over-slf4j-1.7.7.jar" dest="bin" />
+        <unjar src="${lib.dir}/logback-classic-1.1.2.jar" dest="bin" />
+        <unjar src="${lib.dir}/slf4j-api-1.7.7.jar" dest="bin" />
+        <unjar src="${lib.dir}/logback-core-1.1.2.jar" dest="bin" />
+
+        <mkdir dir="bin/resources" />
+        <copy todir= "bin/resources" >
+            <fileset dir="src/resources">
+            </fileset>
+        </copy>
+    </target>
+
+
+    <target name="build-all" depends="init">
+        <buildpackage packagefolder="javabuildtools"/>
+    </target>
+
+
+	<target name="uber-jar" depends="build-all">
+		<jar destfile="package/${ant.project.name}.jar">
+			<fileset dir="bin"/>
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+		</jar>
+	</target>
+
+
+    <target name="run" depends="uber-jar">
+        <java jar="package/${ant.project.name}.jar" fork="true"/>
+    </target>
+
+</project>
