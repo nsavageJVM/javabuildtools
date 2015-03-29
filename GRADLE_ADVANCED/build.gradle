@@ -10,6 +10,13 @@ buildscript {
 
 apply plugin: 'org.javafxports.jfxmobile'
 
+apply plugin: 'idea'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+
 mainClassName = 'com.eduonix.EntryPoint'
 version = '8u40'
 
